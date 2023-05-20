@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: aliceblue;
+        }
+        .header{
+            padding: 0px 60px;
+            border-bottom: 1px solid grey;
+        }
+        .header h1{
+            font-size: 24px;
+            font-weight: 400;
+        }
+        .main{
+            padding: 0px 60px;
+        }
+        .todo{
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 5px;
+        }
+        .cut{
+            text-decoration:line-through;
+        }
+    </style>
+</head>
+<body background="https://tse4.mm.bing.net/th?id=OIP.84IpsZX4Gu7oVqT6QhLilwHaD4&pid=Api&P=0&h=180">
+    <div>
+        <header class="header">
+            <h1>XTodo</h1>
+        </header>
+    </div>
+    <div class="main">
+        <h2>Things to do</h2>
+        <div id="todo-container">
+            <div class="todo">
+                <input id="1" type="checkbox">
+                <label for="1">do assignment</label>
+            </div>
+            <div class="todo">
+                <input id="2" type="checkbox">
+                <label for="2">do assignment</label>
+            </div>
+            <div class="todo">
+                <input checked id="3" type="checkbox">
+                <label class="cut" for="3">do assignment</label>
+            </div>
+        </div>
+    </div>
+    <script>
+        todos = [
+          {
+            name: "buy eggs",
+            id: "1",
+            done: false
+          },
+          {
+            name: "buy books",
+            id: "2",
+            done: false
+          },
+          {
+            name: "sleep",
+            id: "3",
+            done: true
+          },
+        ]
+        const todoContainer=document.getElementById("todo-container")
+        function render(){
+            todoContainer.innerHTML=""
+            todos.forEach(item => {
+                todoContainer.appendChild(getTodo(item))
+            })
+        }
+        function getTodo(item){
+            //{
+            //name: "buy eggs",
+            //id: "1",
+            //done: false
+            //}
+          //  <div class="todo">
+            //    <input id="1" type="checkbox">
+             //   <label for="1">do assignment</label>
+          //  </div>
+          const container=document.createElement("div")
+          container.classList.add("todo")
+          const input=document.createElement("input")
+          input.id=item.id;
+          input.checked=item.done
+          input.type="checkbox"
+          container.appendChild(input)
+          input.addEventListener("change",() =>{
+            item.done=!item.done
+            render()
+          })
+          const label=document.createElement("label")
+          label.htmlFor=item.id;
+          label.innerText=item.name
+          if(item.done){
+            label.classList.add("cut")
+          }
+          container.appendChild(label)
+          return container
+
+        }
+        render()
+    </script>
+</body>
+</html>
